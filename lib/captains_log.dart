@@ -8,7 +8,7 @@ const String _prompt = 'Something happened. Make it sound puzzling and heroic.';
 final List<String> _templates = [
   'We encountered what appeared to be a <insert space anomaly>. It has '
       'proven to be sentient and has taken control of our ship. Thus far, all '
-      'efforts at communication have failed...',
+      'efforts at communication have failed.... HELP!',
   'A warship from the <insert hostile alien organization> has entered our '
       'territory. It is currently speeding towards Earth. Thus far, all '
       'efforts at peace have failed...',
@@ -22,17 +22,38 @@ Map<double, HtmlElement> logEntries;
 HtmlElement logElement;
 
 init() {
+  // clear previous state if any
+  // uninstall();
+
   // initialization
   quillEditor = new quill.QuillStatic('#editor',
-      new quill.QuillOptionsStatic(theme: 'snow', placeholder: _prompt));
+      new quill.QuillOptionsStatic(theme: 'bubble', placeholder: _prompt));
   logElement = document.getElementById('log');
   logEntries = new Map<double, HtmlElement>();
   loadPreviousEntries();
 
   // listeners
   document.getElementById('save').onClick.listen(saveLog);
-  document.getElementById('templateSelect') as SelectElement
-    ..onChange.listen(useTemplate);
+  document.getElementById('clear').onClick.listen(_clearLog);
+  (document.getElementById('templateSelect') as SelectElement)
+      ..onChange.listen(useTemplate);
+}
+
+HtmlElement _clearNode(HtmlElement element) {
+  var newElement = element.clone(true);
+  return element.replaceWith(newElement);
+}
+
+void _clearLog(e) {
+  window.localStorage.clear();
+  logElement.nodes.clear();
+}
+
+uninstall() {
+  document.querySelectorAll('.ql-toolbar').forEach((e) => e.remove());
+  _clearNode(document.getElementById('save'));
+  _clearNode(document.getElementById('clear'));
+  _clearNode(document.getElementById('templateSelect'));
 }
 
 // This function will be removed. It is just holding some example dart that
@@ -71,15 +92,13 @@ HtmlElement captureEditorView() {
 }
 
 void displayLogEntry(double stardate, HtmlElement logEntryElement) {
-//  var logElement = document.getElementById('log');
-
   if (logElement.children.isNotEmpty) {
     logElement.insertAdjacentElement('afterBegin', new HRElement());
   }
 
   logElement.insertAdjacentElement('afterBegin', logEntryElement);
   var stardateElement = new HeadingElement.h2()
-    ..text = 'Stardate: $stardate'
+    ..text = 'Earthdate: $stardate'
     ..classes.add('stardate');
   logElement.insertAdjacentElement('afterBegin', stardateElement);
 }
