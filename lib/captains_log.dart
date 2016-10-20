@@ -27,7 +27,7 @@ init() {
 
   // initialization
   quillEditor = new quill.QuillStatic('#editor',
-      new quill.QuillOptionsStatic(theme: 'bubble', placeholder: _prompt));
+      new quill.QuillOptionsStatic(theme: "snow", placeholder: _prompt));
   logElement = document.getElementById('log');
   logEntries = new Map<double, HtmlElement>();
   loadPreviousEntries();
