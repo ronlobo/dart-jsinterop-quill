@@ -7,18 +7,42 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.5"
+  async:
+    description:
+      name: async
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.11.2"
+  bazel_worker:
+    description:
+      name: bazel_worker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   browser:
     description:
       name: browser
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.0+2"
+  collection:
+    description:
+      name: collection
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.9.1"
   csslib:
     description:
       name: csslib
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.2"
+  fixnum:
+    description:
+      name: fixnum
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.10.5"
   func:
     description:
       name: func
@@ -49,6 +73,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.9"
+  protobuf:
+    description:
+      name: protobuf
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.3"
   source_span:
     description:
       name: source_span
