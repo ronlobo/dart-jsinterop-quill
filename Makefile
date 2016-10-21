@@ -1,3 +1,4 @@
+all: gen/main.js
 
 gen/js.js: packages/js/js.dart
 	dart /Users/vsm/dart/sdk/pkg/dev_compiler/bin/dartdevc.dart --modules=common -p packages/ -o gen/js.js package:js/js.dart
@@ -17,4 +18,5 @@ gen/captains_log.sum: gen/captains_log.js
 gen/main.js: web/main.dart gen/js.sum gen/func.sum gen/captains_log.sum
 	dart /Users/vsm/dart/sdk/pkg/dev_compiler/bin/dartdevc.dart --modules=common -p packages/ -o gen/main.js -s gen/captains_log.sum -s gen/js.sum -s gen/func.sum /Users/vsm/git/dart-jsinterop-quill/web/main.dart
 
-all: gen/main.js
+clean:
+	rm gen/js.js gen/js.sum gen/func.js gen/func.sum gen/captains_log.js gen/captains_log.sum gen/main.js

@@ -1,4 +1,8 @@
+var dart = require("dart_sdk");
 var entry = require("./main");
+
+dart._debugger.registerDevtoolsFormatter();
+
 if (module && module.hot) {
   console.log('HOT RELOADING SETUP');
   module.hot.accept("./main", function (err) {
