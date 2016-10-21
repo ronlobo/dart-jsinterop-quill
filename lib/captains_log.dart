@@ -39,7 +39,7 @@ init() {
       ..onChange.listen(useTemplate);
 }
 
-HtmlElement _clearNode(HtmlElement element) {
+HtmlElement _clearListeners(HtmlElement element) {
   var newElement = element.clone(true);
   return element.replaceWith(newElement);
 }
@@ -51,9 +51,9 @@ void _clearLog(e) {
 
 uninstall() {
   document.querySelectorAll('.ql-toolbar').forEach((e) => e.remove());
-  _clearNode(document.getElementById('save'));
-  _clearNode(document.getElementById('clear'));
-  _clearNode(document.getElementById('templateSelect'));
+  _clearListeners(document.getElementById('save'));
+  _clearListeners(document.getElementById('clear'));
+  _clearListeners(document.getElementById('templateSelect'));
 }
 
 // This function will be removed. It is just holding some example dart that
@@ -98,7 +98,7 @@ void displayLogEntry(double stardate, HtmlElement logEntryElement) {
 
   logElement.insertAdjacentElement('afterBegin', logEntryElement);
   var stardateElement = new HeadingElement.h2()
-    ..text = 'Earthdate: $stardate'
+    ..text = 'Stardate: $stardate'
     ..classes.add('stardate');
   logElement.insertAdjacentElement('afterBegin', stardateElement);
 }
