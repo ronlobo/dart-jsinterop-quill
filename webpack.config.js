@@ -1,7 +1,5 @@
 var path = require('path');
 
-
-
 module.exports = {
   entry: "./gen/ENTRY.js",
   output: {
@@ -10,7 +8,7 @@ module.exports = {
   },
   resolve: {
     root: [
-      '/Users/vsm/dart/sdk/pkg/dev_compiler/lib/js/common',
+      path.join(process.env.DART_SDK, 'lib', '_internal', 'dev_compiler', 'common'),
       path.join(__dirname, 'gen')
     ]
   },

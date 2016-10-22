@@ -10,7 +10,7 @@ import 'package:bazel_worker/testing.dart';
 var build = {
   'gen/js.js': ['package:js/js.dart'],
   'gen/func.js': ['package:func/func.dart'],
-  'gen/captains_log.js': ['lib/captains_log.dart', 'lib/quill.dart', 'gen/js.sum', 'gen/func.sum'],
+  'gen/captains_log.js': ['package:captains_log/captains_log.dart', 'lib/quill.dart', 'gen/js.sum', 'gen/func.sum'],
   'gen/main.js': ['web/main.dart', 'gen/js.sum', 'gen/func.sum', 'gen/captains_log.sum']
 };
 
@@ -26,12 +26,21 @@ List<String> compileCommand(String target, List<String> deps) {
   return command;
 }
 
-void registerWatch(String target, List<String> deps) {
+String depackage(String p) {
+  if (p.startsWith('package:')) {
+    return p.replaceFirst('package:', 'packages/');
+  }
+  return p;
+}
+
+registerWatch(String target, List<String> deps) async {
   var command = compileCommand(target, deps);
-  if (!(new File(target).existsSync())) run(command, true);
-  deps.forEach((f) {
+  deps.forEach((f) async {
+    f = depackage(f);
     var file = new File(f);
-    file.watch().listen((e) => run(command));
+    var process = await Process.start('dartdevc', ['--persistent_worker']);
+    var messageGrouper = new AsyncMessageGrouper(process.stdout);
+    file.watch(events: FileSystemEvent.MODIFY).listen((e) => run(process, messageGrouper, command));
   });
 }
 
@@ -39,15 +48,37 @@ void processBuild(Map<String, List<String>> map) {
   map.forEach(registerWatch);
 }
 
-void run(List<String> command, [bool sync = false]) {
+run(Process process, AsyncMessageGrouper messageGrouper, List<String> command) async {
   print('dartdevc ${command.join(" ")}');
-  if (sync) {
-    Process.runSync('dartdevc', command);
-  } else {
-    Process.run('dartdevc', command);
+  var watch = new Stopwatch()..start();
+  var request = new WorkRequest();
+  request.arguments.addAll(command);
+  process.stdin.add(protoToDelimitedBuffer(request));
+  var response = await _readResponse(messageGrouper);
+  var time = watch.elapsedMilliseconds;
+  if (response.exitCode == 0) {
+    print('Build succeeded in $time ms');
+  }
+  print(response.output);
+}
+
+Future<WorkResponse> _readResponse(MessageGrouper messageGrouper) async {
+  var buffer = (await messageGrouper.next) as List<int>;
+  try {
+    return new WorkResponse.fromBuffer(buffer);
+  } catch (_) {
+    var bufferAsString =
+        buffer == null ? '' : 'String: ${UTF8.decode(buffer)}\n';
+    throw new Exception('Failed to parse response:\nbytes: $buffer\n$bufferAsString');
   }
 }
 
-void main() {
+Process process;
+AsyncMessageGrouper messageGrouper;
+
+
+main() async {
+  var result = Process.runSync('which', ['dartdevc']);
+  print(result.stdout);
   processBuild(build);
 }
