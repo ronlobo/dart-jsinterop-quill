@@ -5,7 +5,6 @@
 library quill;
 
 import "package:js/js.dart";
-import "package:func/func.dart";
 
 /// Type definitions for Quill v1.0.3
 /// Project: http://quilljs.com
@@ -16,6 +15,12 @@ import "package:func/func.dart";
 @anonymous
 @JS()
 abstract class QuillOptionsStatic {
+  external factory QuillOptionsStatic(
+      {String debug,
+      dynamic /*JSMap of <String,dynamic>*/ modules,
+      String placeholder,
+      bool readOnly,
+      String theme});
   external String get debug;
   external set debug(String v);
   external dynamic /*JSMap of <String,dynamic>*/ get modules;
@@ -26,17 +31,12 @@ abstract class QuillOptionsStatic {
   external set readOnly(bool v);
   external String get theme;
   external set theme(String v);
-  external factory QuillOptionsStatic(
-      {String debug,
-      dynamic /*JSMap of <String,dynamic>*/ modules,
-      String placeholder,
-      bool readOnly,
-      String theme});
 }
 
 @anonymous
 @JS()
 abstract class BoundsStatic {
+  external factory BoundsStatic({num left, num top, num height, num width});
   external num get left;
   external set left(num v);
   external num get top;
@@ -45,12 +45,17 @@ abstract class BoundsStatic {
   external set height(num v);
   external num get width;
   external set width(num v);
-  external factory BoundsStatic({num left, num top, num height, num width});
 }
 
 @anonymous
 @JS()
 abstract class DeltaStatic {
+  external factory DeltaStatic(
+      {List<dynamic> ops,
+      dynamic retain,
+      dynamic delete,
+      dynamic insert,
+      dynamic attributes});
   external List<dynamic> get ops;
   external set ops(List<dynamic> v);
   external dynamic get retain;
@@ -61,12 +66,6 @@ abstract class DeltaStatic {
   external set insert(dynamic v);
   external dynamic get attributes;
   external set attributes(dynamic v);
-  external factory DeltaStatic(
-      {List<dynamic> ops,
-      dynamic retain,
-      dynamic delete,
-      dynamic insert,
-      dynamic attributes});
 }
 
 @anonymous
@@ -85,6 +84,7 @@ abstract class QuillStatic {
   external void deleteText(num start, num end,
       [String /*'api'|'user'|'silent'*/ source]);
   external void disable();
+  external void destroy();
   external void enable([bool enabled]);
   external DeltaStatic getContents([num start, num end]);
   external num getLength();
