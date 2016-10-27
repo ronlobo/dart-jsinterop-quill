@@ -6,13 +6,13 @@ packages:
       name: args
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.5"
+    version: "0.13.6"
   async:
     description:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.11.2"
+    version: "1.11.3"
   bazel_worker:
     description:
       name: bazel_worker
@@ -36,7 +36,7 @@ packages:
       name: csslib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.2"
+    version: "0.13.2+1"
   fixnum:
     description:
       name: fixnum
@@ -54,7 +54,7 @@ packages:
       name: html
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.0"
+    version: "0.13.1"
   js:
     description:
       name: js
@@ -72,7 +72,7 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.9"
+    version: "1.4.0"
   protobuf:
     description:
       name: protobuf
@@ -84,7 +84,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.3"
+    version: "1.2.4"
   utf:
     description:
       name: utf
@@ -92,4 +92,4 @@ packages:
     source: hosted
     version: "0.9.0+3"
 sdks:
-  dart: ">=1.19.0-dev.0.0 <2.0.0"
+  dart: ">=1.21.0-dev.2.0 <2.0.0"
