@@ -1,5 +1,8 @@
 {
   "name": "dart-jsinterop-quill",
+  "scripts": {
+    "start": "webpack-dev-server --content-base=web --inline --watch --hot"
+  },
   "devDependencies": {
     "file-watcher-webpack-plugin": "^1.1.0",
     "source-map-loader": "^0.1.5",

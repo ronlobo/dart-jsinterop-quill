@@ -7,11 +7,10 @@ pubspec.lock
 build/
 **/packages/
 web/gen
-web/packages
+!gen/ENTRY.js
 
 doc/api/
 
-*.iml
 *.ipr
 *.iws
 .idea/
@@ -20,3 +19,6 @@ doc/api/
 *.dart.js
 *.info.json
 *.js
+!webpack.config.js
+
+node_modules/

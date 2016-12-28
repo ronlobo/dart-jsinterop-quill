@@ -19,4 +19,4 @@ gen/main.js: web/main.dart gen/js.sum gen/func.sum gen/captains_log.sum
 	dartdevc --modules=common -p packages/ -o gen/main.js -s gen/captains_log.sum -s gen/js.sum -s gen/func.sum web/main.dart
 
 clean:
-	rm gen/js.js gen/js.sum gen/func.js gen/func.sum gen/captains_log.js gen/captains_log.sum gen/main.js
+	cd gen && ls | grep -v ENTRY.js | xargs rm

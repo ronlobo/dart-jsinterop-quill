@@ -8,7 +8,7 @@ module.exports = {
   },
   resolve: {
     root: [
-      path.join(process.env.DART_SDK, 'lib', '_internal', 'dev_compiler', 'common'),
+      path.join(process.env.DART_SDK, 'lib', 'dev_compiler', 'common'),
       path.join(__dirname, 'gen')
     ]
   },

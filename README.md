@@ -6,9 +6,9 @@ It's been tested on the Mac only for now.  The following steps should be run in 
 
 - Install a recent Dart SDK.  You will need `1.21.0-dev.2.0` or later.  Set the `DART_SDK` environment variable to point to your installed SDK.  Ensure that the Dart `bin` (`$DART_SDK/bin`) is in your path.  This should include the `dart` and `dartdevc` executables.
 
-- Install Dart dependencies.
+- Install Dart dependencies. (--packages-dir is required for make)
 ```
-pub get
+pub get --packages-dir
 ```
 
 - Install Node dependencies (for webpack, etc.).
@@ -29,7 +29,7 @@ dart tool/watch.dart
 - In a separate terminal, start the webpack server in the same directory.  Add the `-d` option to enable source maps (though it slows the rebuild slightly).
 
 ```
-./node_modules/.bin/webpack-dev-server --content-base=web --inline --watch --hot
+npm start
 ```
 
 - Navigate your browser(s) (recent Chrome, Firefox, or Safari 10) to `http://localhost:8080/webpack-dev-server/`
